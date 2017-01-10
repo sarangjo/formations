@@ -1,5 +1,5 @@
 import React from 'react';
-import Dancer from './Dancer.react';
+import Choreographer from './Choreographer.react';
 import Grid from './Grid.react';
 
 /**
@@ -19,11 +19,15 @@ const Formations = React.createClass({
   },
 
   getInitialState() {
-    let dancers = [];
-    for (let i = 0; i < 8; i++) {
-      dancers.push(<Dancer x={50 * (1 + i)} y={50} r={20} key={i}/>);
-    }
-    return { dancers: dancers };
+    return {
+      stepN: 0
+    };
+  },
+
+  buttonClicked() {
+    this.setState({
+      stepN: this.state.stepN + 1
+    });
   },
 
   render() {
@@ -31,8 +35,10 @@ const Formations = React.createClass({
       <div>
         <svg width={this.props.width} height={this.props.height} xmlns='http://www.w3.org/2000/svg' version="1.1">
           <Grid width={this.props.width} height={this.props.height} interval={50}/>
-          {this.state.dancers}
+          <Choreographer stepN={this.state.stepN}/>
         </svg>
+        <br/>
+        <button onClick={this.buttonClicked}>Next</button>
       </div>
     );
   }
