@@ -1,10 +1,12 @@
 import React from 'react';
-import Choreographer from './Choreographer.react';
+import Display from './Display.react';
+import * as firebase from 'firebase';
 import Grid from './Grid.react';
+import Choreographer from './Choreographer.react';
 
-/**
- * TODO
- */
+import constants from '../constants.js';
+const MODES = constants.MODES;
+
 const Formations = React.createClass({
   propTypes: {
     width: React.PropTypes.number,
@@ -20,27 +22,85 @@ const Formations = React.createClass({
 
   getInitialState() {
     return {
-      stepN: 0
+      choreo: {},
+      mode: true,
+      doneLoading: false
     };
   },
 
-  buttonClicked() {
+  componentWillMount() {
+    firebase.database().ref('/').on('value', (snapshot) => {
+      this.setState({
+        choreo: snapshot.val() || {},
+        doneLoading: true
+      });
+    });
+  },
+
+  handleEdit(id) {
     this.setState({
-      stepN: this.state.stepN + 1
+      currentId: id,
+      mode: false
+    })
+  },
+
+  handleNewDancer(id) {
+    this.setState({
+      currentId: id,
+      mode: false
+    });
+  },
+
+  handleOffset(key, x, y, name) {
+    let steps = this.state.choreo[key];
+    let offsetSteps = steps.map((step, i) => {
+      return {x: step.x + x, y: step.y + y};
+    });
+    firebase.database().ref(name).set(offsetSteps);
+  },
+
+  handleSaveSteps(id, steps) {
+    firebase.database().ref(id).set(steps);
+    this.setState({
+      currentId: null,
+      mode: true
     });
   },
 
   render() {
-    return (
-      <div>
-        <svg width={this.props.width} height={this.props.height} xmlns='http://www.w3.org/2000/svg' version="1.1">
-          <Grid width={this.props.width} height={this.props.height} interval={50}/>
-          <Choreographer stepN={this.state.stepN}/>
-        </svg>
-        <br/>
-        <button onClick={this.buttonClicked}>Next</button>
-      </div>
+    let grid = (
+      <Grid {...this.props}/>
     );
+    let content;
+    if (this.state.doneLoading) {
+      if (this.state.mode) {
+        content = (
+          <Display {...this.props}
+            grid={grid}
+            choreo={this.state.choreo}
+            onEdit={this.handleEdit}
+            onNewDancer={this.handleNewDancer}
+            onOffset={this.handleOffset}/>
+        );
+      } else {
+        content = (
+          <Choreographer {...this.props} id={this.state.currentId} steps={this.state.choreo[this.state.currentId] || []} grid={grid} onSaveSteps={this.handleSaveSteps}/>
+        )
+      }
+
+      return (
+        <div>
+          <div>
+            {this.state.mode ? "Dancers" : "Choreo"}
+          </div>
+          {content}
+        </div>
+      );
+    } else {
+      return (
+        <div>Loading</div>
+      );
+    }
   }
 });
 

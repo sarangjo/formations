@@ -1,45 +1,76 @@
 import React from 'react';
-import Dancer from './Dancer.react.js';
-
-const STEPS = [
-  {x:150, y:150}, {x:200, y:150}, {x:200, y:200}, {x:150, y:200}, {x:150, y:150}
-];
+import * as firebase from 'firebase';
+import Dot from './Dot.react.js';
+import Constants from '../constants.js';
 
 const Choreographer = React.createClass({
   propTypes: {
-    stepN: React.PropTypes.number
-  },
-
-  getDefaultProps() {
-    return {
-      stepN: 0
-    };
+    width: React.PropTypes.number,
+    height: React.PropTypes.number,
+    id: React.PropTypes.string.isRequired,
+    steps: React.PropTypes.array.isRequired,
+    onSaveSteps: React.PropTypes.func
   },
 
   getInitialState() {
     return {
-      dancers: [STEPS[0]]
+      id: this.props.id,
+      steps: this.props.steps
     };
   },
 
   componentWillReceiveProps(nextProps) {
-    this.state.dancers[0] = (nextProps.stepN < STEPS.length ? STEPS[nextProps.stepN] : _.last(STEPS));
     this.setState({
-      dancers: this.state.dancers
+      steps: nextProps.steps
     });
   },
 
+  handleClick(evt) {
+    var dim = this.refs.svg.getBoundingClientRect();
+    var x = evt.clientX - dim.left;
+    var y = evt.clientY - dim.top;
+    x = Math.round(x / Constants.INTERVAL) * Constants.INTERVAL;
+    y = Math.round(y / Constants.INTERVAL) * Constants.INTERVAL;
+    this.state.steps.push({x: x, y: y});
+    this.forceUpdate();
+  },
+
+  undoClicked() {
+    if (this.state.steps.length) {
+      this.state.steps.pop();
+    }
+    this.forceUpdate();
+  },
+
+  saveClicked() {
+    this.props.onSaveSteps(this.state.id, this.state.steps);
+  },
+
   render() {
-    let dancers = this.state.dancers.map((dancer, i) => {
+    let formation = this.state.steps.map((dancer, i) => {
       return (
-        <Dancer {...dancer} key={i}/>
+        <Dot {...dancer} key={i}/>
       );
     });
 
+    let stepNumbers = this.state.steps.map((dancer, i) => {
+      return (
+        <text x={dancer.x + (Constants.INTERVAL / 2)} y={dancer.y} key={i}>{i}</text>
+      )
+    });
+
     return (
-      <g>
-        {dancers}
-      </g>
+      <div>
+        {this.state.id}
+        <button onClick={this.undoClicked}>Undo</button>
+        <button onClick={this.saveClicked}>Save</button>
+        <br/>
+        <svg ref="svg" width={this.props.width} height={this.props.height} xmlns='http://www.w3.org/2000/svg' version="1.1" onClick={this.handleClick}>
+          {this.props.grid}
+          {formation}
+          {stepNumbers}
+        </svg>
+      </div>
     );
   }
 });
