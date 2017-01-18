@@ -152,7 +152,7 @@ const Display = React.createClass({
         <svg ref="svg" width={this.props.width} height={this.props.height} xmlns='http://www.w3.org/2000/svg' version="1.1" onClick={this.handleClick}>
           {this.props.grid}
           {formation}
-          <circle cx={Constants.CENTER.x} cy={Constants.CENTER.y} r={5}/>
+          <circle cx={Constants.CENTER.x} cy={Constants.CENTER.y + ((this.state.stepN >= 5) ? 25 : 0)} r={5}/>
         </svg>
         <h1>Audience here</h1>
       </div>
