@@ -46,6 +46,10 @@ const Choreographer = React.createClass({
     this.props.onSaveSteps(this.state.id, this.state.steps);
   },
 
+  loadClicked() {
+    // this.setState(formation2);
+  },
+
   render() {
     let formation = this.state.steps.map((dancer, i) => {
       return (
@@ -64,6 +68,7 @@ const Choreographer = React.createClass({
         {this.state.id}
         <button onClick={this.undoClicked}>Undo</button>
         <button onClick={this.saveClicked}>Save</button>
+        <button onClick={this.loadClicked}>Load</button>
         <br/>
         <svg ref="svg" width={this.props.width} height={this.props.height} xmlns='http://www.w3.org/2000/svg' version="1.1" onClick={this.handleClick}>
           {this.props.grid}

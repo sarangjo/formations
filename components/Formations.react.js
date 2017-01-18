@@ -7,6 +7,8 @@ import Choreographer from './Choreographer.react';
 import constants from '../constants.js';
 const MODES = constants.MODES;
 
+var formation2 = require('../formation2.js');
+
 const Formations = React.createClass({
   propTypes: {
     width: React.PropTypes.number,
@@ -16,7 +18,7 @@ const Formations = React.createClass({
   getDefaultProps() {
     return {
       width: 1000,
-      height: 500
+      height: 900
     };
   },
 
@@ -29,12 +31,16 @@ const Formations = React.createClass({
   },
 
   componentWillMount() {
-    firebase.database().ref('/').on('value', (snapshot) => {
-      this.setState({
-        choreo: snapshot.val() || {},
-        doneLoading: true
-      });
+    this.setState({
+      choreo: formation2.choreo,
+      doneLoading: true
     });
+    // firebase.database().ref('/').on('value', (snapshot) => {
+    //   this.setState({
+    //     choreo: snapshot.val() || {},
+    //     doneLoading: true
+    //   });
+    // });
   },
 
   handleEdit(id) {
