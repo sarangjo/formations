@@ -69,7 +69,7 @@ const Dancer = React.createClass({
       <g>
         <circle cx={this.state.realX} cy={this.state.realY} r={this.props.r} fill={color} strokeWidth={5} stroke="black"
           onClick={this.handleClick}/>
-        <text x={this.state.realX - 13} y={this.state.realY + 6} fontSize={18}>{this.props.id.toUpperCase().substring(0,2)}</text>
+        <text x={this.state.realX - 13} y={this.state.realY + 6} fontSize={18}>{this.props.id.toUpperCase().substring(0,Math.min(this.props.id.length, 3))}</text>
       </g>
     );
   }

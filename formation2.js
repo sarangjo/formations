@@ -27,7 +27,7 @@ choreo.forEach(function(dancer, i) {
   });
 });
 
-choreo.forEach(function(dancer) {
+choreo.forEach(function(dancer, i) {
   var intermediate = dancer[1];
   dancer.push({
     r: RADIUS, theta: intermediate.theta + ((i % 2) ? -1 : 1) * DANCER_ANGLE
