@@ -3,6 +3,7 @@ import React from 'react';
 const SIMPLE = false;
 const DUR = 800; // total duration
 const INT = 20; // interval between movements
+import C from '../constants.js';
 
 let intervalId;
 
@@ -65,11 +66,14 @@ const Dancer = React.createClass({
     if (this.props.id[0] == 'A' || this.props.id[0] == 'C') color = "aqua";
     else if (this.props.id[0] == 'B' || this.props.id[0] == 'D') color = "red";
 
+    let x = this.state.realX + C.CENTER.x;
+    let y = this.state.realY + C.CENTER.y;
+
     return (
       <g>
-        <circle cx={this.state.realX} cy={this.state.realY} r={this.props.r} fill={color} strokeWidth={5} stroke="black"
+        <circle cx={x} cy={y} r={this.props.r} fill={color} strokeWidth={5} stroke="black"
           onClick={this.handleClick}/>
-        <text x={this.state.realX - 13} y={this.state.realY + 6} fontSize={18}>{this.props.id.toUpperCase().substring(0,Math.min(this.props.id.length, 3))}</text>
+        <text textAnchor={'middle'} x={x} y={y + 6} fontSize={18}>{this.props.id.toUpperCase().substring(0,Math.min(this.props.id.length, 3))}</text>
       </g>
     );
   }

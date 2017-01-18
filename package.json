@@ -22,7 +22,8 @@
   },
   "scripts": {
     "nixdev": "cp views/index.html public/index.html && NODE_ENV=development webpack && webpack-dev-server --content-base public/ --hot --inline --devtool inline-source-map --history-api-fallback",
-    "windev": "cp views/index.html public/index.html && set NODE_ENV=development webpack && webpack-dev-server --content-base public/ --hot --inline --devtool inline-source-map --history-api-fallback"
+    "windev": "cp views/index.html public/index.html && set NODE_ENV=development webpack && webpack-dev-server --content-base public/ --hot --inline --devtool inline-source-map --history-api-fallback",
+    "publish": "webpack && git add -A . && git commit -m \"Progress\" && git push"
   },
   "author": "Sarang Joshi",
   "license": "MIT",

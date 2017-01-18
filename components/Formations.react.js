@@ -7,6 +7,7 @@ import Choreographer from './Choreographer.react';
 import constants from '../constants.js';
 const MODES = constants.MODES;
 
+var formation1 = require('../formation1.js');
 var formation2 = require('../formation2.js');
 
 const Formations = React.createClass({
@@ -17,8 +18,8 @@ const Formations = React.createClass({
 
   getDefaultProps() {
     return {
-      width: 1000,
-      height: 900
+      width: constants.CENTER.x * 2,
+      height: constants.CENTER.y * 2
     };
   },
 
@@ -31,8 +32,13 @@ const Formations = React.createClass({
   },
 
   componentWillMount() {
+    var choreo = {};
+    _.forOwn(formation1.choreo, (dancer, key) => {
+      choreo[key] = dancer.concat(formation2.choreo[key]);
+    });
+
     this.setState({
-      choreo: formation2.choreo,
+      choreo: choreo,
       doneLoading: true
     });
     // firebase.database().ref('/').on('value', (snapshot) => {

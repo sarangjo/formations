@@ -8,9 +8,7 @@ const DANCER_ANGLE = Math.PI / (N/2);
 // const SMALL_ANGLE = Math.PI - (DANCER_ANGLE / 2) -
 // const DIFF = RADIUS - (Math.sin(DANCER_ANGLE / 4) * RADIUS / Math.sin(Math.PI - (STEP_ANGLE / 2)));
 
-const DIFF = 50;
-
-const CENTER = {x: 300, y: 300};
+const DIFF = 60;
 
 var choreo = [];
 
@@ -36,10 +34,10 @@ choreo.forEach(function(dancer, i) {
 
 var realChoreo = {};
 choreo.forEach(function(dancer, i) {
-  realChoreo["A" + i] = dancer.map(function(place) {
+  realChoreo["" + i] = dancer.map(function(place) {
     return {
-      x: CENTER.x + place.r * Math.cos(place.theta),
-      y: CENTER.y + place.r * Math.sin(place.theta)
+      x: place.r * Math.cos(place.theta),
+      y: place.r * Math.sin(place.theta)
     };
   });
 });
