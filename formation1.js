@@ -8,12 +8,35 @@ for (var i = -3; i <= 3; i += 2) {
   }
 }
 
-// choreo.forEach(function(dancer, i) {
-//   var start = dancer[0];
-//   dancer.push({
-//     r: start.r + ((i % 2) ? 1 : -1) * DIFF, theta: start.theta + ((i % 2) ? -1 : 1) * DANCER_ANGLE
-//   });
-// });
+choreo.forEach(function(dancer, i) {
+  var start = dancer[0];
+  if (Math.floor(i / 3) % 2 == 0) {
+    start = { x: start.x, y: start.y - 50 };
+    dancer.push(start);
+    start = { x: start.x + 100, y: start.y };
+    dancer.push(start);
+    start = { x: start.x, y: start.y + 100 };
+    dancer.push(start);
+    start = { x: start.x - 100, y: start.y };
+    dancer.push(start);
+    start = { x: start.x, y: start.y - 25 };
+    dancer.push(start);
+  } else {
+    start = { x: start.x, y: start.y };
+    dancer.push(start);
+    start = { x: start.x - 100, y: start.y };
+    dancer.push(start);
+    start = { x: start.x, y: start.y };
+    dancer.push(start);
+    start = { x: start.x + 100, y: start.y };
+    dancer.push(start);
+    start = { x: start.x, y: start.y + 25 };
+    dancer.push(start);
+  }
+  // dancer.push({
+  //   r: start.r + ((i % 2) ? 1 : -1) * DIFF, theta: start.theta + ((i % 2) ? -1 : 1) * DANCER_ANGLE
+  // });
+});
 //
 // choreo.forEach(function(dancer, i) {
 //   var intermediate = dancer[1];
@@ -24,7 +47,7 @@ for (var i = -3; i <= 3; i += 2) {
 
 var realChoreo = {};
 choreo.forEach(function(dancer, i) {
-  realChoreo["" + i] = dancer.map(function(place) {
+  realChoreo["" + (i + 1)] = dancer.map(function(place) {
     return {
       x: place.x,
       y: place.y
@@ -32,7 +55,7 @@ choreo.forEach(function(dancer, i) {
   });
 });
 
-realChoreo["SA"] = [{x: 800, y: 100}, {x: 800, y: 100}, {x: 800, y: 100}];
+realChoreo["SA"] = [{x: 800, y: 100}, {x: 800, y: 100}, {x: 800, y: 100}, {x: 800, y: 100}, {x: 800, y: 100}, {x: 800, y: 100}];
 
 module.exports = {
   choreo: realChoreo

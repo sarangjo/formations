@@ -49,6 +49,10 @@ const Formations = React.createClass({
     // });
   },
 
+  handleKey(evt) {
+    
+  },
+
   handleEdit(id) {
     this.setState({
       currentId: id,

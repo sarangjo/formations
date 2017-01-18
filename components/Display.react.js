@@ -148,12 +148,13 @@ const Display = React.createClass({
         <button disabled={!this.state.isNormal} onClick={this.stopClicked}>Stop</button>
         <button disabled={!this.state.isNormal} onClick={this.resetClicked}>Reset</button>
         <button disabled={!this.state.isNormal} onClick={this.offsetClicked}>Offset</button>
-        <div>Audience here; Step number: {this.state.stepN}</div>
+        <div>Step number: {this.state.stepN}</div>
         <svg ref="svg" width={this.props.width} height={this.props.height} xmlns='http://www.w3.org/2000/svg' version="1.1" onClick={this.handleClick}>
           {this.props.grid}
           {formation}
           <circle cx={Constants.CENTER.x} cy={Constants.CENTER.y} r={5}/>
         </svg>
+        <h1>Audience here</h1>
       </div>
     );
   }
