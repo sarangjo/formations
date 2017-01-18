@@ -9,6 +9,7 @@ const MODES = constants.MODES;
 
 var formation1 = require('../formation1.js');
 var formation2 = require('../formation2.js');
+var formation3 = require('../formation3.js');
 
 const Formations = React.createClass({
   propTypes: {
@@ -36,6 +37,9 @@ const Formations = React.createClass({
     _.forOwn(formation1.choreo, (dancer, key) => {
       choreo[key] = dancer.concat(formation2.choreo[key]);
     });
+    _.forOwn(choreo, (dancer, key) => {
+      choreo[key] = dancer.concat(formation3.choreo[key]);
+    });
 
     this.setState({
       choreo: choreo,
@@ -50,7 +54,7 @@ const Formations = React.createClass({
   },
 
   handleKey(evt) {
-    
+
   },
 
   handleEdit(id) {
