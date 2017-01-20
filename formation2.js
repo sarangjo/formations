@@ -21,14 +21,14 @@ for (var i = 1; i <= N; i++) {
 choreo.forEach(function(dancer, i) {
   var start = dancer[0];
   dancer.push({
-    r: start.r + ((i % 2) ? 1 : -1) * DIFF, theta: start.theta + ((i % 2) ? -1 : 1) * DANCER_ANGLE
+    r: start.r + ((i % 2) ? -1 : 1) * DIFF, theta: start.theta + ((i % 2) ? 1 : -1) * DANCER_ANGLE
   });
 });
 
 choreo.forEach(function(dancer, i) {
   var intermediate = dancer[1];
   dancer.push({
-    r: RADIUS, theta: intermediate.theta + ((i % 2) ? -1 : 1) * DANCER_ANGLE
+    r: RADIUS, theta: intermediate.theta + ((i % 2) ? 1 : -1) * DANCER_ANGLE
   });
 });
 

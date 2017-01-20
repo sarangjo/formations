@@ -11,7 +11,8 @@ for (var i = -5.5; i <= 4.5; i += 2) {
   }]);
 }
 
-var nums = [6, 1, 8, 3, 11, 9, 5, 2, 10, 4, 12, 7];
+// var nums = [6, 1, 8, 3, 11, 9, 5, 2, 10, 4, 12, 7];
+var nums = [4, 9, 2, 12, 6, 10, 3, 7, 1, 11, 5, 8];
 
 var realChoreo = {};
 choreo.forEach(function(dancer, i) {

@@ -33,6 +33,14 @@ const Display = React.createClass({
     });
   },
 
+  atBeginning(stepN) {
+    var shouldStop = false;
+    _.forOwn(this.props.choreo, (value, key) => {
+      shouldStop = shouldStop || (this.state.stepN == 0);
+    });
+    return shouldStop;
+  },
+
   shouldStop(stepN) {
     var shouldStop = false;
     _.forOwn(this.props.choreo, (value, key) => {
@@ -47,6 +55,17 @@ const Display = React.createClass({
       formation[key] = (value[stepN % value.length]);
     });
     return formation;
+  },
+
+  prevClicked() {
+    if (this.atBeginning()) {
+      this.stopClicked();
+    } else {
+      this.setState({
+        stepN: this.state.stepN - 1,
+        formation: this.getFormation(this.state.stepN - 1)
+      });
+    }
   },
 
   nextClicked() {
@@ -143,6 +162,7 @@ const Display = React.createClass({
         <input type="text" value={this.state.value} onChange={this.handleChange} />
         <button onClick={this.handleNewDancer}>New Dancer</button>
         <br/>
+        <button disabled={!this.state.isNormal} onClick={this.prevClicked}>Previous</button>
         <button disabled={!this.state.isNormal} onClick={this.nextClicked}>Next</button>
         <button disabled={!this.state.isNormal} onClick={this.startClicked}>Start</button>
         <button disabled={!this.state.isNormal} onClick={this.stopClicked}>Stop</button>
