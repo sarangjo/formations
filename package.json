@@ -14,7 +14,7 @@
     "jsx-loader": "^0.13.2",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
-    "lodash": "^3.10.1",
+    "lodash": "^4.17.15",
     "react": "^15.3.1",
     "react-dom": "^15.3.1",
     "style-loader": "^0.13.1",
