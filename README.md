@@ -13,3 +13,5 @@ Formations for dance team choreography.
 
 ## Suggestions
 - Size of person based on height
+
+https://sarangjo.github.io/formations/public/
